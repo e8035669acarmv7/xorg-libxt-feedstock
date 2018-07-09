@@ -17,12 +17,8 @@ source:
     - windows.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   detect_binary_files_with_prefix: true
-  features:
-    - vc9  # [win and py27]
-    - vc10  # [win and py34]
-    - vc14  # [win and py35]
 
 requirements:
   build:
@@ -30,14 +26,11 @@ requirements:
     - m2-automake{{ am_version }}  # [win]
     - m2-libtool  # [win]
     - m2w64-pkg-config  # [win]
-    - m2w64-toolchain  # [win]
     - pkg-config  # [not win]
     - posix  # [win]
-    - python  # [win]
-    - toolchain
-    - vc 9  # [win and py27]
-    - vc 10  # [win and py34]
-    - vc 14  # [win and py35]
+    - {{ compiler('c') }}        # [unix]
+    - {{ compiler('m2w64_c') }}  # [win]
+  host:
     - xorg-kbproto
     - xorg-libice 1.0.*
     - xorg-libsm 1.2.*
@@ -45,9 +38,6 @@ requirements:
     - xorg-util-macros
     - xorg-xproto
   run:
-    - vc 9  # [win and py27]
-    - vc 10  # [win and py34]
-    - vc 14  # [win and py35]
     - xorg-kbproto
     - xorg-libice 1.0.*
     - xorg-libsm 1.2.*
@@ -56,6 +46,15 @@ requirements:
 
 test:
   commands:
+    {% set lib_idents = [ "Xt" ] %}
+    {% for lib_ident in lib_idents %}
+    - test -f $PREFIX/lib/lib{{ lib_ident }}.dylib  # [osx]
+    - test -f $PREFIX/lib/lib{{ lib_ident }}.so  # [linux]
+    - if not exist %PREFIX%/Library/lib/lib{{ lib_ident }}.dll.a exit /b 1  # [win]
+    - if not exist %PREFIX%/Library/lib/lib{{ lib_ident }}.a exit /b 1  # [win]
+    - if not exist %PREFIX%/Library/lib/lib{{ lib_ident }}.la exit /b 1  # [win]
+    - if not exist %PREFIX%/Library/bin/msys-{{ lib_ident }}-*.dll exit /b 1  # [win]
+    {% endfor %}
     - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
     - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 
