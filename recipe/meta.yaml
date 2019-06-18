@@ -17,7 +17,7 @@ source:
     - windows.patch  # [win]
 
 build:
-  number: 1002
+  number: 1003
   detect_binary_files_with_prefix: true
 
 requirements:
@@ -28,6 +28,7 @@ requirements:
     - m2w64-pkg-config  # [win]
     - pkg-config  # [not win]
     - posix  # [win]
+    - make  # [not win]
     - {{ compiler('c') }}        # [unix]
     - {{ compiler('m2w64_c') }}  # [win]
   host:
