@@ -2,7 +2,7 @@
 {% set xorg_category = "lib" %}
 {% set name = "xorg-" ~ xorg_name %}
 {% set version = "1.2.0" %}
-{% set sha256 = "dd0efb27c17d47097921c48167c294f207d2bb42262187ab87a392d044130837" %}
+{% set sha256 = "b31df531dabed9f4611fc8980bc51d7782967e2aff44c4105251a1acb5a77831" %}
 {% set am_version = "1.15" %} # keep synchronized with build.sh
 
 package:
