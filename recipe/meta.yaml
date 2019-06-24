@@ -1,8 +1,8 @@
 {% set xorg_name = "libXt" %}
 {% set xorg_category = "lib" %}
 {% set name = "xorg-" ~ xorg_name %}
-{% set version = "1.1.5" %}
-{% set sha256 = "46eeb6be780211fdd98c5109286618f6707712235fdd19df4ce1e6954f349f1a" %}
+{% set version = "1.2.0" %}
+{% set sha256 = "dd0efb27c17d47097921c48167c294f207d2bb42262187ab87a392d044130837" %}
 {% set am_version = "1.15" %} # keep synchronized with build.sh
 
 package:
@@ -17,7 +17,7 @@ source:
     - windows.patch  # [win]
 
 build:
-  number: 1003
+  number: 0
   detect_binary_files_with_prefix: true
 
 requirements:
