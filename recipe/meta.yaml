@@ -1,8 +1,8 @@
 {% set xorg_name = "libXt" %}
 {% set xorg_category = "lib" %}
 {% set name = "xorg-" ~ xorg_name %}
-{% set version = "1.2.0" %}
-{% set sha256 = "b31df531dabed9f4611fc8980bc51d7782967e2aff44c4105251a1acb5a77831" %}
+{% set version = "1.2.1" %}
+{% set sha256 = "679cc08f1646dbd27f5e48ffe8dd49406102937109130caab02ca32c083a3d60" %}
 {% set am_version = "1.15" %} # keep synchronized with build.sh
 
 package:
@@ -54,15 +54,13 @@ test:
     - if not exist %PREFIX%/Library/lib/lib{{ lib_ident }}.dll.a exit /b 1  # [win]
     - if not exist %PREFIX%/Library/bin/msys-{{ lib_ident }}-*.dll exit /b 1  # [win]
     {% endfor %}
-    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
-    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 
 about:
   home: https://www.x.org/
   license: MIT
   license_family: MIT
   license_file: COPYING
-  summary: 'The X.org X11 toolkit intrinsics library.'
+  summary: The X.org X11 toolkit intrinsics library.
 
 extra:
   recipe-maintainers:
