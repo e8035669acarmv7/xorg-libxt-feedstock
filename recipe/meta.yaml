@@ -17,7 +17,7 @@ source:
     - windows.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   detect_binary_files_with_prefix: true
 
 requirements:
@@ -35,14 +35,16 @@ requirements:
     - xorg-kbproto
     - xorg-libice 1.0.*
     - xorg-libsm 1.2.*
-    - xorg-libx11 1.6.*
+    - xorg-libx11 >=1.6,<2
+    # Additional constraintless xorg-libx11 dep below is for conda-build to add potential pinning to.
+    - xorg-libx11
     - xorg-util-macros
     - xorg-xproto
   run:
     - xorg-kbproto
     - xorg-libice 1.0.*
     - xorg-libsm 1.2.*
-    - xorg-libx11 1.6.*
+    - {{ pin_compatible('xorg-libx11') }}
     - xorg-xproto
 
 test:
