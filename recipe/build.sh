@@ -75,6 +75,10 @@ if [ -n "$CYGWIN_PREFIX" ] ; then
     configure_args+=(--with-xfile-search-path="$uprefix/etc/X11/%L/%T/%N%C%S:$uprefix/share/X11/%L/%T/%N%C%S:$uprefix/lib/X11/%L/%T/%N%C%S")
 fi
 
+if [[ "${CONDA_BUILD_CROSS_COMPILATION}" == "1" ]] ; then
+    configure_args+=(--enable-malloc0returnsnull)
+fi
+
 ./configure "${configure_args[@]}"
 make -j$CPU_COUNT
 make install
