@@ -32,6 +32,7 @@ requirements:
     - pkg-config  # [not win]
     - posix  # [win]
     - make  # [not win]
+    - gnuconfig  # [unix]
     - {{ compiler('c') }}        # [unix]
     - {{ compiler('m2w64_c') }}  # [win]
   host:

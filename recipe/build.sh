@@ -1,4 +1,6 @@
 #! /bin/bash
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
 set -e
 IFS=$' \t\n' # workaround for conda 4.2.13+toolchain bug
@@ -73,10 +75,16 @@ if [ -n "$CYGWIN_PREFIX" ] ; then
     configure_args+=(--with-xfile-search-path="$uprefix/etc/X11/%L/%T/%N%C%S:$uprefix/share/X11/%L/%T/%N%C%S:$uprefix/lib/X11/%L/%T/%N%C%S")
 fi
 
+if [[ "${CONDA_BUILD_CROSS_COMPILATION}" == "1" ]] ; then
+    configure_args+=(--enable-malloc0returnsnull)
+fi
+
 ./configure "${configure_args[@]}"
 make -j$CPU_COUNT
 make install
+if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
 make check
+fi
 rm -rf $uprefix/share/man $uprefix/share/doc/${PKG_NAME#xorg-}
 
 # Remove any new Libtool files we may have installed. It is intended that
